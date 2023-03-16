@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/wallet/wallet.dart';
+import 'package:ftec5520_client/data/data_source/web3_datasource.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
+  Future<double> getBalance() async {
+    var data = await Web3DataSource().getBalance();
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +21,17 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             const Wallet(),
+            FutureBuilder<double>(
+                future: getBalance(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<double> snapshot) {
+                  return Text(
+                    snapshot.data.toString(),
+                    style: Theme.of(context).textTheme.headline4,
+                  );
+                }),
             Text(
-              '0',
+              'end',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],

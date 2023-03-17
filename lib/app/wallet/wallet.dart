@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ftec5520_client/data/repositories/ethereum_insurance_contract/web3_wallet_repo.dart';
+import 'package:ftec5520_client/domain/interfaces/repositories/wallet_repository.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -8,11 +10,13 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-  int _counter = 0;
+  double? balance;
 
-  void _incrementCounter() {
+  Future<void> getBalance() async {
+    final WalletRepository walletRepo = Web3WalletRepo();
+    var data = await walletRepo.getBalance();
     setState(() {
-      _counter++;
+      balance = data;
     });
   }
 
@@ -22,15 +26,17 @@ class _WalletState extends State<Wallet> {
       child: Column(
         children: [
           ListTile(
-            leading: Icon(Icons.account_balance_wallet),
-            title: Text('Wallet'),
-            subtitle: Text('Balance: \$_counter'),
+            leading: const Icon(Icons.account_balance_wallet),
+            title: const Text('Wallet'),
+            subtitle: balance != null
+                ? Text(balance.toString())
+                : const Text('loading...'),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                onPressed: () => {},
+                onPressed: () => getBalance(),
                 icon: const Icon(Icons.refresh),
                 tooltip: 'Reload',
                 iconSize: 30,

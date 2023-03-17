@@ -11,16 +11,8 @@ import 'package:web3dart/web3dart.dart';
 class Web3InsuranceContractRepo implements InsuranceContractRepository {
 
   Web3DataSource web3DataSource = Web3DataSource();
-  // SocketConnector stockConnector = null;
-
-  // var httpClient = Client();
-  // late Web3Client web3client;
-  // var credentials = EthPrivateKey.fromHex(
-  //     '83b19c39b9c9b6779b16694e9b42705b4bdf604a140cb31a27c1a4f4c5784cba');
 
   Web3InsuranceContractRepo() {
-    // web3client = Web3Client(url, httpClient);
-    // var address = await credentials.extractAddress();
   }
 
   @override

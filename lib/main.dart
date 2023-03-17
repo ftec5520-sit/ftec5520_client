@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ftec5520_client/app/contract/contract_template_list.dart';
 import 'package:ftec5520_client/app/home/home.dart';
 
 void main() {
@@ -24,7 +25,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Home(),
+        '/contract-template-list': (context) => const ContractTemplateList(),
+      },
+      // home: const Home(),
     );
   }
 }

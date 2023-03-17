@@ -23,7 +23,9 @@ class Home extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/contract-template-list');
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

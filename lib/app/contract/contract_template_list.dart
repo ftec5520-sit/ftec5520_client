@@ -51,13 +51,17 @@ class _ContractTemplateListState extends State<ContractTemplateList> {
         child: ListView.builder(
             itemCount: contractTemplates.length,
             itemBuilder: (context, index) {
-              if (contractTemplates.isEmpty) {
-                return const Center(
-                  child: Text('No Contract Template'),
-                );
-              }
-              return ContractTemplateCard(
-                  contractTemplate: contractTemplates[index]);
+              return GestureDetector(
+                child: ContractTemplateCard(
+                    contractTemplate: contractTemplates[index]),
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const Text("Hello");
+                      });
+                },
+              );
             }),
       ),
     );

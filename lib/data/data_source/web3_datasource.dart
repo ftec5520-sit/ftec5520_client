@@ -62,4 +62,24 @@ class Web3DataSource {
           return value;
         });
   }
+  
+  Future<String> purchaseInsuranceContract(
+      String templateName,
+      String flightNumber,
+      int departureTime,
+      ) async {
+    final factory = TravelInsuranceFactory(
+        address: _address, client: _web3Client);
+
+    return factory.createTravelInsurance(
+        templateName,
+        flightNumber,
+        departureTime.toString(),
+        credentials: _credentials,
+        transaction: Transaction(
+          from: _address,
+          maxGas: 1000000,
+        ),
+    );
+  }
 }

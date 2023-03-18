@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/contract-template-list');
+          Navigator.pushNamed(context, '/flight-list');
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

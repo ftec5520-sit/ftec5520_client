@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ftec5520_client/app/contract/contract_template_list.dart';
+import 'package:ftec5520_client/app/flight/flight_list.dart';
 import 'package:ftec5520_client/app/home/home.dart';
 
 void main() {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
-        '/contract-template-list': (context) => const ContractTemplateList(),
+        '/flight-list': (context) => const FlightList(),
       },
       // home: const Home(),
     );

@@ -15,9 +15,13 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             const Wallet(),
+            const SizedBox(
+              height: 12
+            ),
             Text(
-              'end',
-              style: Theme.of(context).textTheme.headline4,
+              'You do not have any contract yet.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
         ),
@@ -27,7 +31,10 @@ class Home extends StatelessWidget {
           Navigator.pushNamed(context, '/flight-list');
         },
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(
+          Icons.health_and_safety,
+          size: 30,
+        ),
       ),
     );
   }

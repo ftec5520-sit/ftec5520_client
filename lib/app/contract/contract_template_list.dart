@@ -13,15 +13,22 @@ class ContractTemplateList extends StatefulWidget {
 }
 
 class _ContractTemplateListState extends State<ContractTemplateList> {
-
   List<ContractTemplate> contractTemplates = [];
 
-  Future<void> getContractTemplates() async {
-    final InsuranceContractRepository insuranceContractRepo = Web3InsuranceContractRepo();
-    var data = await insuranceContractRepo.getAvailableContractTemplates();
-    setState(() {
-      contractTemplates = data;
-    });
+  void getContractTemplates() {
+    final InsuranceContractRepository insuranceContractRepo =
+        Web3InsuranceContractRepo();
+    insuranceContractRepo.getAvailableContractTemplates().then((value) => {
+          setState(() {
+            contractTemplates = value;
+          })
+        });
+  }
+
+  @override
+  void initState() {
+    getContractTemplates();
+    super.initState();
   }
 
   @override
@@ -32,7 +39,7 @@ class _ContractTemplateListState extends State<ContractTemplateList> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              getContractTemplates();
             },
             icon: const Icon(Icons.refresh),
             tooltip: 'Back',
@@ -41,9 +48,17 @@ class _ContractTemplateListState extends State<ContractTemplateList> {
         ],
       ),
       body: Center(
-        child: ListView.builder(itemBuilder: (context, index) {
-          return ContractTemplateCard(contractTemplate: contractTemplates[index]);
-        }),
+        child: ListView.builder(
+            itemCount: contractTemplates.length,
+            itemBuilder: (context, index) {
+              if (contractTemplates.isEmpty) {
+                return const Center(
+                  child: Text('No Contract Template'),
+                );
+              }
+              return ContractTemplateCard(
+                  contractTemplate: contractTemplates[index]);
+            }),
       ),
     );
   }

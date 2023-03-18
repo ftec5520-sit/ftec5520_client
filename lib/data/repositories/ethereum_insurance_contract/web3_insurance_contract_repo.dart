@@ -10,10 +10,9 @@ import 'package:web3dart/web3dart.dart';
 
 class Web3InsuranceContractRepo implements InsuranceContractRepository {
 
-  Web3DataSource web3DataSource = Web3DataSource();
+  Web3DataSource _web3DataSource = Web3DataSource();
 
-  Web3InsuranceContractRepo() {
-  }
+  Web3InsuranceContractRepo();
 
   @override
   Future<List<InsuranceContract>> getPurchasedInsuranceContracts() async {
@@ -22,8 +21,13 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
 
   @override
   Future<List<ContractTemplate>> getAvailableContractTemplates() async {
-    // TODO: implement getAvailableContractTemplates
-    throw UnimplementedError();
+    return _web3DataSource.getAvailableContractTemplates().then((value) {
+      return value.map((e) => ContractTemplate(
+          name: e,
+          premium: 0.0,
+          payoutAmount: 0.0,
+      )).toList();
+    });
   }
 
   @override

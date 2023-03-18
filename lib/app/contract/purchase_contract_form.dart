@@ -5,17 +5,15 @@ import '../../domain/entities/flight.dart';
 
 class PurchaseContractForm extends StatefulWidget {
   final Flight flight;
+  final List<ContractTemplate> contractTemplates;
 
-  // final GlobalKey<FormState> formKey;
-  // final GlobalKey<ScaffoldState> scaffoldKey;
   final Function(dynamic result) onSuccess;
   final Function(dynamic result) onError;
 
   const PurchaseContractForm({
     super.key,
     required this.flight,
-    // this.formKey,
-    // this.scaffoldKey,
+    required this.contractTemplates,
     required this.onSuccess,
     required this.onError,
   });
@@ -25,10 +23,19 @@ class PurchaseContractForm extends StatefulWidget {
 }
 
 class _PurchaseContractFormState extends State<PurchaseContractForm> {
+
+  String? _selectedTemplateId;
+
   @override
   void initState() {
     print(widget.flight);
     super.initState();
+  }
+
+  void _onItemSelect(String id) {
+    setState(() {
+      _selectedTemplateId = id;
+    });
   }
 
   Future _showConfirmationDialog(BuildContext context) async {
@@ -226,24 +233,18 @@ class _PurchaseContractFormState extends State<PurchaseContractForm> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                Column(
-                  children: [
-                    CheckboxListTile(
-                      title: Text('Plan 1'),
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                    CheckboxListTile(
-                      title: Text('Plan 2'),
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                    CheckboxListTile(
-                      title: Text('Plan 3'),
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                  ],
+                ListView.builder(
+                  itemCount: widget.contractTemplates.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final item = widget.contractTemplates[index];
+                    return ListTile(
+                      title: Text(item.name),
+                      selected: _selectedTemplateId == item.id,
+                      onTap: () => _onItemSelect(item.id),
+                    );
+                  },
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(

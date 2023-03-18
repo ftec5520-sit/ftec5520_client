@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/flight/flight_card.dart';
 
+import '../../data/repositories/ethereum_insurance_contract/web3_insurance_contract_repo.dart';
+import '../../domain/entities/contract_template.dart';
 import '../../domain/entities/flight.dart';
+import '../../domain/interfaces/repositories/insurance_contract_repository.dart';
 import '../contract/purchase_contract_form.dart';
 
 class FlightList extends StatefulWidget {
@@ -13,8 +16,26 @@ class FlightList extends StatefulWidget {
 
 class _ContractFlightListState extends State<FlightList> {
   List<Flight> flights = [];
+  List<ContractTemplate> contractTemplates = [];
 
-  void getFlights() {
+  @override
+  void initState() {
+    _getContractTemplates();
+    _getFlights();
+    super.initState();
+  }
+
+  void _getContractTemplates() {
+    final InsuranceContractRepository insuranceContractRepo =
+    Web3InsuranceContractRepo();
+    insuranceContractRepo.getAvailableContractTemplates().then((value) => {
+      setState(() {
+        contractTemplates = value;
+      })
+    });
+  }
+
+  void _getFlights() {
     setState(() {
       flights = [
         Flight(
@@ -94,12 +115,6 @@ class _ContractFlightListState extends State<FlightList> {
   }
 
   @override
-  void initState() {
-    getFlights();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +122,7 @@ class _ContractFlightListState extends State<FlightList> {
         actions: [
           IconButton(
             onPressed: () {
-              getFlights();
+              _getFlights();
             },
             icon: const Icon(Icons.refresh),
             tooltip: 'Refresh',
@@ -127,6 +142,7 @@ class _ContractFlightListState extends State<FlightList> {
                       builder: (BuildContext context) {
                         return PurchaseContractForm(
                           flight: flights[index],
+                          contractTemplates: contractTemplates,
                           onSuccess: (result) {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -10,13 +10,16 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-  double? balance;
+  String? _accountAddress;
+  double? _balance;
 
-  Future<void> getBalance() async {
+  Future<void> getWalletData() async {
     final WalletRepository walletRepo = Web3WalletRepo();
-    var data = await walletRepo.getBalance();
+    var accountAddress = await walletRepo.getAccountAddress();
+    var balance = await walletRepo.getBalance();
     setState(() {
-      balance = data;
+      _accountAddress = accountAddress;
+      _balance = balance;
     });
   }
 
@@ -25,18 +28,46 @@ class _WalletState extends State<Wallet> {
     return Card(
       child: Column(
         children: [
-          ListTile(
-            leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('Wallet'),
-            subtitle: balance != null
-                ? Text(balance.toString())
-                : const Text('loading...'),
+          const SizedBox(
+            height: 8,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const Icon(
+                Icons.account_balance_wallet,
+                size: 40,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              _balance != null
+                  ? Text(
+                      '${_balance.toString()} ETH',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    )
+                  : const Text('loading...',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      )),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: Text(_accountAddress ?? '-',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    )),
+              ),
               IconButton(
-                onPressed: () => getBalance(),
+                onPressed: () => getWalletData(),
                 icon: const Icon(Icons.refresh),
                 tooltip: 'Reload',
                 iconSize: 30,

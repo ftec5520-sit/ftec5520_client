@@ -12,7 +12,13 @@ class Web3WalletRepo implements WalletRepository {
   }
 
   @override
+  Future<String> getAccountAddress() {
+    return web3DataSource.getAccountAddress();
+  }
+
+  @override
   Future<double> getBalance() {
     return web3DataSource.getBalance();
   }
+
 }

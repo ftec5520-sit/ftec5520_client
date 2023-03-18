@@ -1,9 +1,11 @@
 class ContractTemplate {
+  final String id;
   final String name;
   final double premium;
   final double payoutAmount;
 
   ContractTemplate({
+    required this.id,
     required this.name,
     required this.premium,
     required this.payoutAmount,

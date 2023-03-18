@@ -42,6 +42,12 @@ class Web3DataSource {
     _credentials = EthPrivateKey.fromHex(_key);
   }
 
+  Future<String> getAccountAddress() async {
+    var credentials = EthPrivateKey.fromHex(_key);
+    print('getAccountAddress ${credentials.extractAddress().hashCode}');
+    return credentials.extractAddress().then((value) => value.hex);
+  }
+
   Future<double> getBalance() async {
     var credentials = EthPrivateKey.fromHex(_key);
     var address = await credentials.extractAddress();

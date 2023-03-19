@@ -17,7 +17,7 @@ class PurchasedContractList extends StatefulWidget {
 class _PurchasedContractListState extends State<PurchasedContractList> {
   List<InsuranceContract> purchasedContracts = [];
 
-  void getPurchasedContracts() {
+  Future<void> _getPurchasedContracts() async {
     final InsuranceContractRepository insuranceContractRepo =
         Web3InsuranceContractRepo();
     insuranceContractRepo.getPurchasedInsuranceContracts().then((value) => {
@@ -29,25 +29,35 @@ class _PurchasedContractListState extends State<PurchasedContractList> {
 
   @override
   void initState() {
-    getPurchasedContracts();
+    _getPurchasedContracts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: purchasedContracts.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            child: InsuranceContractCard(purchasedContracts[index]),
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const Text("Hello");
-                  });
-            },
-          );
-        });
+    return RefreshIndicator(
+      onRefresh: _getPurchasedContracts,
+      child: purchasedContracts.isNotEmpty
+          ? ListView.builder(
+          shrinkWrap: true,
+          itemCount: purchasedContracts.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              child: InsuranceContractCard(purchasedContracts[index]),
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const Text("Hello");
+                    });
+              },
+            );
+          })
+          : Text(
+        'You do not have any contract yet.',
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+    );
   }
 }

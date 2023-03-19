@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/wallet/wallet.dart';
 
+import '../contract/purchased_contract_list.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -18,11 +20,7 @@ class Home extends StatelessWidget {
             const SizedBox(
               height: 12
             ),
-            Text(
-              'You do not have any contract yet.',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            PurchasedContractList(),
           ],
         ),
       ),

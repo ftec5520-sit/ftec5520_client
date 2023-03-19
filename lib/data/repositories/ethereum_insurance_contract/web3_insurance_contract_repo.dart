@@ -12,13 +12,28 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
 
   @override
   Future<List<InsuranceContract>> getPurchasedInsuranceContracts() async {
-    // return _web3DataSource.getAvailableContractTemplates().then((value) {
-    //   print('getPurchasedInsuranceContracts value:$value');
-    //   return [
-    //     ContractTemplate(id: 0, name: "name", premium: 100, payoutAmount: 200),
-    //   ];
-    // });
-    throw UnimplementedError();
+    return _web3DataSource.getPurchasedInsuranceContracts().then(
+      (value) {
+        print('getPurchasedInsuranceContracts value:$value');
+        return value.asMap().entries.map((entry) {
+          final list = entry.value as List<dynamic>;
+
+          return InsuranceContract(
+            address: 'unknown',
+            templateId: (list[0] as BigInt).toInt(),
+            templateName: list[1].toString(),
+            flightNumber: list[2].toString(),
+            departureTime: (list[3] as BigInt).toInt(),
+            insurer: list[4].toString(),
+            insured: list[5].toString(),
+            premium: (list[6] as BigInt).toDouble(),
+            payoutAmount: (list[7] as BigInt).toDouble(),
+            isActive: list[8].toString() == "true",
+            isPaidOut: list[9].toString() == "true",
+          );
+        }).toList();
+      },
+    );
   }
 
   @override

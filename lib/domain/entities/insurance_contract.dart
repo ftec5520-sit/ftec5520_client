@@ -1,5 +1,6 @@
 class InsuranceContract {
   String address;
+  int templateId;
   String templateName;
   String flightNumber;
   int departureTime;
@@ -12,6 +13,7 @@ class InsuranceContract {
 
   InsuranceContract({
     required this.address,
+    required this.templateId,
     required this.templateName,
     required this.flightNumber,
     required this.departureTime,

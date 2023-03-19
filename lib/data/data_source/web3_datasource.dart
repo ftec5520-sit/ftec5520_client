@@ -1,8 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:ftec5520_client/data/data_source/TravelInsuranceFactory.g.dart';
-import 'package:ftec5520_client/domain/entities/contract_template.dart';
 import 'package:http/http.dart';
-
 import 'package:web3dart/web3dart.dart';
 
 class Web3DataSource {
@@ -21,8 +18,6 @@ class Web3DataSource {
       '83b19c39b9c9b6779b16694e9b42705b4bdf604a140cb31a27c1a4f4c5784cba';
   late final EthPrivateKey _credentials;
 
-  // late final DeployedContract _insuranceContractAbi;
-  // late final DeployedContract _insuranceContractFactoryAbi;
   late final Web3Client _web3Client;
   late final EthereumAddress _address;
 
@@ -34,12 +29,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x8a5B5eA587644524F2115411665Df3903a2427a3');
-
-    // final String factoryAbi = rootBundle
-    //     .loadString('assets/abi/TravelInsuranceFactory.abi.json') as String;
-    // _insuranceContractFactoryAbi = DeployedContract(
-    //     ContractAbi.fromJson(factoryAbi, 'TravelInsuranceFactory'), _address);
+        EthereumAddress.fromHex('0x6Ce3165D50B83517130BA1c754ED35BafEb48252');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -67,6 +57,21 @@ class Web3DataSource {
 
     return factory.getInsuranceTemplates().then((value) {
       print('getInsuranceTemplates value:${value}');
+      return value;
+    });
+  }
+
+  Future<List<dynamic>> getPurchasedInsuranceContracts() async {
+    final factory =
+        TravelInsuranceFactory(address: _address, client: _web3Client);
+
+    // final vv = await factory.getDeployedInsurances().then((value) {
+    //   print('getDeployedInsurances value:${value}');
+    //   return value;
+    // });
+
+    return factory.getMyInsurances().then((value) {
+      print('getMyInsurances value:${value}');
       return value;
     });
   }

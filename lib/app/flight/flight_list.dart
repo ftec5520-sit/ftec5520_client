@@ -27,12 +27,12 @@ class _ContractFlightListState extends State<FlightList> {
 
   void _getContractTemplates() {
     final InsuranceContractRepository insuranceContractRepo =
-    Web3InsuranceContractRepo();
+        Web3InsuranceContractRepo();
     insuranceContractRepo.getAvailableContractTemplates().then((value) => {
-      setState(() {
-        contractTemplates = value;
-      })
-    });
+          setState(() {
+            contractTemplates = value;
+          })
+        });
   }
 
   void _getFlights() {

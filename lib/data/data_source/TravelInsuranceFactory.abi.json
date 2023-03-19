@@ -1,10 +1,5 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "inputs": [
       {
         "internalType": "string",
@@ -30,9 +25,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_templateName",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "_templateId",
+        "type": "uint256"
       },
       {
         "internalType": "string",
@@ -45,29 +40,15 @@
         "type": "string"
       }
     ],
-    "name": "createTravelInsurance",
+    "name": "purchaseTravelInsurance",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "deployedInsurances",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
     "inputs": [],
@@ -83,29 +64,35 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      }
-    ],
-    "name": "getInsuranceTemplate",
+    "inputs": [],
+    "name": "getInsuranceTemplates",
     "outputs": [
       {
-        "internalType": "string",
-        "name": "_templateName",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_premium",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_payoutAmount",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "premium",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "payoutAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct TravelInsuranceFactory.InsuranceTemplate[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -113,31 +100,64 @@
   },
   {
     "inputs": [],
-    "name": "getInsuranceTemplateNames",
+    "name": "getMyInsurances",
     "outputs": [
       {
-        "internalType": "string[]",
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "templateId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "templateName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "flightNumber",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "departureTime",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "insurer",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "insured",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "premium",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "payoutAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isPaidOut",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct TravelInsurance.TravelInsuranceData[]",
         "name": "",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "insuranceTemplateNames",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",

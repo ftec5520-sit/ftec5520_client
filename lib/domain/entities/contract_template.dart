@@ -1,5 +1,5 @@
 class ContractTemplate {
-  final String id;
+  final int id;
   final String name;
   final double premium;
   final double payoutAmount;

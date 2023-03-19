@@ -3,7 +3,11 @@ import 'package:ftec5520_client/domain/entities/insurance_contract.dart';
 
 abstract class InsuranceContractRepository {
   Future<List<InsuranceContract>> getPurchasedInsuranceContracts();
+
   Future<List<ContractTemplate>> getAvailableContractTemplates();
-  Future<InsuranceContract> purchaseInsuranceContract(
-      ContractTemplate contractTemplate);
+
+  Future<String> purchaseInsuranceContract(
+      ContractTemplate contractTemplate,
+      String flightNumber,
+      int departureTime);
 }

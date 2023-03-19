@@ -21,7 +21,8 @@ class Web3DataSource {
       '83b19c39b9c9b6779b16694e9b42705b4bdf604a140cb31a27c1a4f4c5784cba';
   late final EthPrivateKey _credentials;
 
-  // late final DeployedContract _contractAbi;
+  // late final DeployedContract _insuranceContractAbi;
+  // late final DeployedContract _insuranceContractFactoryAbi;
   late final Web3Client _web3Client;
   late final EthereumAddress _address;
 
@@ -32,12 +33,14 @@ class Web3DataSource {
   }
 
   Web3DataSource._internal() {
-    // final String abi =
-    // rootBundle.loadString('assets/abi/travel_insurance.json') as String;
     _address =
-        EthereumAddress.fromHex('0x01850F09c9E7e4AdA840c64A03910600e9E33120');
-    // _contractAbi =
-        // DeployedContract(ContractAbi.fromJson(abi, 'TravelInsurance'), _address);
+        EthereumAddress.fromHex('0x8a5B5eA587644524F2115411665Df3903a2427a3');
+
+    // final String factoryAbi = rootBundle
+    //     .loadString('assets/abi/TravelInsuranceFactory.abi.json') as String;
+    // _insuranceContractFactoryAbi = DeployedContract(
+    //     ContractAbi.fromJson(factoryAbi, 'TravelInsuranceFactory'), _address);
+
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
   }
@@ -58,34 +61,35 @@ class Web3DataSource {
     return balance.getValueInUnit(EtherUnit.ether);
   }
 
-  Future<List<String>> getAvailableContractTemplates() async {
-    final factory = TravelInsuranceFactory(
-        address: _address, client: _web3Client);
+  Future<List<dynamic>> getAvailableContractTemplates() async {
+    final factory =
+        TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    return factory.getInsuranceTemplateNames().then(
-            (value) {
-          print(value);
-          return value;
-        });
+    return factory.getInsuranceTemplates().then((value) {
+      print('getInsuranceTemplates value:${value}');
+      return value;
+    });
   }
-  
-  Future<String> purchaseInsuranceContract(
-      String templateName,
-      String flightNumber,
-      int departureTime,
-      ) async {
-    final factory = TravelInsuranceFactory(
-        address: _address, client: _web3Client);
 
-    return factory.createTravelInsurance(
-        templateName,
-        flightNumber,
-        departureTime.toString(),
-        credentials: _credentials,
-        transaction: Transaction(
-          from: _address,
-          maxGas: 1000000,
-        ),
+  Future<String> purchaseInsuranceContract(
+    int templateId,
+    String flightNumber,
+    int departureTime,
+    double premium,
+  ) async {
+    final factory =
+        TravelInsuranceFactory(address: _address, client: _web3Client);
+
+    return factory.purchaseTravelInsurance(
+      BigInt.from(templateId),
+      flightNumber,
+      departureTime.toString(),
+      credentials: _credentials,
+      transaction: Transaction(
+        // from: _address,
+        // maxGas: 3000000,
+        value: EtherAmount.fromInt(EtherUnit.wei, premium.toInt()),
+      ),
     );
   }
 }

@@ -13,6 +13,12 @@ class _WalletState extends State<Wallet> {
   String? _accountAddress;
   double? _balance;
 
+  @override
+  initState() {
+    getWalletData();
+    super.initState();
+  }
+
   Future<void> getWalletData() async {
     final WalletRepository walletRepo = Web3WalletRepo();
     var accountAddress = await walletRepo.getAccountAddress();

@@ -11,13 +11,13 @@ class PurchasedContractList extends StatefulWidget {
   PurchasedContractList({purchasedContracts, super.key});
 
   @override
-  _PurchasedContractListState createState() => _PurchasedContractListState();
+  PurchasedContractListState createState() => PurchasedContractListState();
 }
 
-class _PurchasedContractListState extends State<PurchasedContractList> {
+class PurchasedContractListState extends State<PurchasedContractList> {
   List<InsuranceContract> purchasedContracts = [];
 
-  Future<void> _getPurchasedContracts() async {
+  Future<void> getPurchasedContracts() async {
     final InsuranceContractRepository insuranceContractRepo =
         Web3InsuranceContractRepo();
     insuranceContractRepo.getPurchasedInsuranceContracts().then((value) => {
@@ -29,14 +29,14 @@ class _PurchasedContractListState extends State<PurchasedContractList> {
 
   @override
   void initState() {
-    _getPurchasedContracts();
+    getPurchasedContracts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _getPurchasedContracts,
+      onRefresh: getPurchasedContracts,
       child: purchasedContracts.isNotEmpty
           ? ListView.builder(
           shrinkWrap: true,

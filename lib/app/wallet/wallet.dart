@@ -6,10 +6,10 @@ class Wallet extends StatefulWidget {
   const Wallet({super.key});
 
   @override
-  State<Wallet> createState() => _WalletState();
+  State<Wallet> createState() => WalletState();
 }
 
-class _WalletState extends State<Wallet> {
+class WalletState extends State<Wallet> {
   String? _accountAddress;
   double? _balance;
 
@@ -75,13 +75,10 @@ class _WalletState extends State<Wallet> {
                       color: Colors.grey,
                     )),
               ),
-              IconButton(
-                onPressed: () => getWalletData(),
-                icon: const Icon(Icons.refresh),
-                tooltip: 'Reload',
-                iconSize: 30,
-              ),
             ],
+          ),
+          const SizedBox(
+            height: 12,
           ),
         ],
       ),

@@ -42,7 +42,7 @@ class _ContractTemplateListState extends State<ContractTemplateList> {
               getContractTemplates();
             },
             icon: const Icon(Icons.refresh),
-            tooltip: 'Back',
+            tooltip: 'Refresh',
             iconSize: 30,
           ),
         ],

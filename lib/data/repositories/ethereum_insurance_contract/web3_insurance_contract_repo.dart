@@ -11,6 +11,14 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
   Web3InsuranceContractRepo();
 
   @override
+  Future<List<String>> getDeployedInsurances() {
+    return _web3DataSource.getDeployedInsurances().then((value) {
+      print('getDeployedInsurances value:$value');
+      return value;
+    });
+  }
+
+  @override
   Future<List<InsuranceContract>> getPurchasedInsuranceContracts() async {
     return _web3DataSource.getPurchasedInsuranceContracts().then(
       (value) {

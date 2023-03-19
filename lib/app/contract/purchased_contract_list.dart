@@ -25,6 +25,10 @@ class PurchasedContractListState extends State<PurchasedContractList> {
             purchasedContracts = value;
           })
         });
+
+    insuranceContractRepo.getDeployedInsurances().then((value) => {
+          // print('getDeployedInsurances value:$value'),
+    });
   }
 
   @override

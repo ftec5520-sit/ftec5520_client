@@ -61,6 +61,16 @@ class Web3DataSource {
     });
   }
 
+  Future<List<String>> getDeployedInsurances() async {
+    final factory =
+        TravelInsuranceFactory(address: _address, client: _web3Client);
+
+    return factory.getDeployedInsurances().then((value) {
+      print('getDeployedInsurances value:${value}');
+      return [];
+    });
+  }
+
   Future<List<dynamic>> getPurchasedInsuranceContracts() async {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);

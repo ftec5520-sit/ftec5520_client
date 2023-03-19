@@ -29,7 +29,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x6Ce3165D50B83517130BA1c754ED35BafEb48252');
+        EthereumAddress.fromHex('0x8CEED0Acd0D20144C27541A8bfeC35351dd87568');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);

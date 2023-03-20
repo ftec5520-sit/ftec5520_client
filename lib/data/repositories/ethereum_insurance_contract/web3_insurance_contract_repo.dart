@@ -35,8 +35,8 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
           DateTime departureTime = DateTime.fromMillisecondsSinceEpoch(int.parse(list[3] as String));
           String insurer = list[4].toString();
           String insured = list[5].toString();
-          double premium = (list[6] as BigInt).toDouble();
-          double payoutAmount = (list[7] as BigInt).toDouble();
+          BigInt premium = list[6] as BigInt;
+          BigInt payoutAmount = list[7] as BigInt;
           bool isActive = list[8].toString() == "true";
           bool isPaidOut = list[9].toString() == "true";
 
@@ -67,8 +67,8 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
         return ContractTemplate(
           id: (list[0] as BigInt).toInt(),
           name: list[1].toString(),
-          premium: (list[2] as BigInt).toDouble(),
-          payoutAmount: (list[3] as BigInt).toDouble(),
+          premium: list[2] as BigInt,
+          payoutAmount: list[3] as BigInt,
         );
       }).toList();
     });

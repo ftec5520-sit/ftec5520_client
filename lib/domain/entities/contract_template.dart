@@ -1,8 +1,8 @@
 class ContractTemplate {
   final int id;
   final String name;
-  final double premium;
-  final double payoutAmount;
+  final BigInt premium; // in wei
+  final BigInt payoutAmount; // in wei
 
   ContractTemplate({
     required this.id,

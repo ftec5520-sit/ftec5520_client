@@ -8,8 +8,8 @@ class InsuranceContract {
   DateTime departureTime;
   String insurer;
   String insured;
-  double premium;
-  double payoutAmount;
+  BigInt premium;
+  BigInt payoutAmount;
   bool isActive;
   bool isPaidOut;
 

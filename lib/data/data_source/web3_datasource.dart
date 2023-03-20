@@ -95,7 +95,7 @@ class Web3DataSource {
     int templateId,
     String flightNumber,
     int departureTime,
-    double premium,
+    BigInt premium,
   ) async {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
@@ -108,7 +108,7 @@ class Web3DataSource {
       transaction: Transaction(
         // from: _address,
         // maxGas: 3000000,
-        value: EtherAmount.fromInt(EtherUnit.wei, premium.toInt()),
+        value: EtherAmount.fromBigInt(EtherUnit.wei, premium),
       ),
     );
   }

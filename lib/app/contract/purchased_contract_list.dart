@@ -28,7 +28,7 @@ class PurchasedContractListState extends State<PurchasedContractList> {
 
     insuranceContractRepo.getDeployedInsurances().then((value) => {
           // print('getDeployedInsurances value:$value'),
-    });
+        });
   }
 
   @override
@@ -39,29 +39,30 @@ class PurchasedContractListState extends State<PurchasedContractList> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: getPurchasedContracts,
-      child: purchasedContracts.isNotEmpty
-          ? ListView.builder(
-          shrinkWrap: true,
-          itemCount: purchasedContracts.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              child: InsuranceContractCard(purchasedContracts[index]),
-              onTap: () {
-                // showModalBottomSheet(
-                //     context: context,
-                //     builder: (BuildContext context) {
-                //       return const Text("Hello");
-                //     });
-              },
-            );
-          })
-          : Text(
-        'You do not have any contract yet.',
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
-    );
+    return Expanded(
+        child: RefreshIndicator(
+            onRefresh: getPurchasedContracts,
+            child: purchasedContracts.isNotEmpty
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: purchasedContracts.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        child: InsuranceContractCard(purchasedContracts[index]),
+                        onTap: () {
+                          // showModalBottomSheet(
+                          //     context: context,
+                          //     builder: (BuildContext context) {
+                          //       return const Text("Hello");
+                          //     });
+                        },
+                      );
+                    })
+                : Text(
+                    'You do not have any contract yet.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  )));
   }
 }

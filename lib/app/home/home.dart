@@ -30,15 +30,13 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Wallet(key: _walletKey),
-            const SizedBox(height: 12),
-            PurchasedContractList(key: _purchasedContractListKey),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Wallet(key: _walletKey),
+          const SizedBox(height: 12),
+          PurchasedContractList(key: _purchasedContractListKey),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

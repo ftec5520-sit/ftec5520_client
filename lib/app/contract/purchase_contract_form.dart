@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/domain/entities/contract_template.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../data/repositories/ethereum_insurance_contract/web3_insurance_contract_repo.dart';
 import '../../domain/entities/flight.dart';
@@ -286,6 +287,7 @@ class _PurchaseContractFormState extends State<PurchaseContractForm> {
                               e.name,
                               style: TextStyle(
                                 fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.grey[800],
                               ),
                             ),
@@ -293,7 +295,7 @@ class _PurchaseContractFormState extends State<PurchaseContractForm> {
                               child: Container(),
                             ),
                             Text(
-                              'Premium ${e.premium.toString()}',
+                              'Premium ${EtherAmount.inWei(e.premium).getValueInUnit(EtherUnit.ether)} ETH',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.grey[800],
@@ -303,7 +305,7 @@ class _PurchaseContractFormState extends State<PurchaseContractForm> {
                               child: Container(),
                             ),
                             Text(
-                              'Payout ${e.payoutAmount.toString()}',
+                              'Payout ${EtherAmount.inWei(e.payoutAmount).getValueInUnit(EtherUnit.ether)} ETH',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.grey[800],

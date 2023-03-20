@@ -146,9 +146,9 @@ class _ContractFlightListState extends State<FlightList> {
                           onSuccess: (result) {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 backgroundColor: Colors.green,
-                                content: Text(result.toString()),
+                                content: Text('Purchase successful!'),
                               ),
                             );
                           },

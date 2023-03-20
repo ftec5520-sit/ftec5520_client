@@ -14,8 +14,10 @@ class Web3DataSource {
   // final String url = "https://eth-sepolia.g.alchemy.com/v2/";
   final String _url =
       'https://sepolia.infura.io/v3/e4aa6ad3fb4e4e0197c7badd0c897cac';
+  // final String _key =
+  //     '83b19c39b9c9b6779b16694e9b42705b4bdf604a140cb31a27c1a4f4c5784cba';
   final String _key =
-      '83b19c39b9c9b6779b16694e9b42705b4bdf604a140cb31a27c1a4f4c5784cba';
+      '0a54058ddde8dd823f32b3320427c91cfe84b2cc55c945d5abd061177bb30fd4';
   late final EthPrivateKey _credentials;
 
   late final Web3Client _web3Client;
@@ -29,7 +31,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x8CEED0Acd0D20144C27541A8bfeC35351dd87568');
+        EthereumAddress.fromHex('0x79C15989e15055C2713F31C0127Cd17083d52cc2');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -80,7 +82,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[5];
+    final function = factory.self.abi.functions[4];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,

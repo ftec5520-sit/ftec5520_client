@@ -49,11 +49,11 @@ class PurchasedContractListState extends State<PurchasedContractList> {
             return GestureDetector(
               child: InsuranceContractCard(purchasedContracts[index]),
               onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const Text("Hello");
-                    });
+                // showModalBottomSheet(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return const Text("Hello");
+                //     });
               },
             );
           })

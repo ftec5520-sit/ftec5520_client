@@ -23,21 +23,35 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
     return _web3DataSource.getPurchasedInsuranceContracts().then(
       (value) {
         print('getPurchasedInsuranceContracts value:$value');
-        return value.asMap().entries.map((entry) {
-          final list = entry.value as List<dynamic>;
+        final data = value[0] as List<dynamic>;
+        if (data.isEmpty) {
+          return [];
+        }
+
+        return data.map((list) {
+          int templateId = (list[0] as BigInt).toInt();
+          String templateName = list[1].toString();
+          String flightNumber = list[2].toString();
+          DateTime departureTime = DateTime.fromMillisecondsSinceEpoch(int.parse(list[3] as String));
+          String insurer = list[4].toString();
+          String insured = list[5].toString();
+          double premium = (list[6] as BigInt).toDouble();
+          double payoutAmount = (list[7] as BigInt).toDouble();
+          bool isActive = list[8].toString() == "true";
+          bool isPaidOut = list[9].toString() == "true";
 
           return InsuranceContract(
             address: 'unknown',
-            templateId: (list[0] as BigInt).toInt(),
-            templateName: list[1].toString(),
-            flightNumber: list[2].toString(),
-            departureTime: (list[3] as BigInt).toInt(),
-            insurer: list[4].toString(),
-            insured: list[5].toString(),
-            premium: (list[6] as BigInt).toDouble(),
-            payoutAmount: (list[7] as BigInt).toDouble(),
-            isActive: list[8].toString() == "true",
-            isPaidOut: list[9].toString() == "true",
+            templateId: templateId,
+            templateName: templateName,
+            flightNumber: flightNumber,
+            departureTime: departureTime,
+            insurer: insurer,
+            insured: insured,
+            premium: premium,
+            payoutAmount: payoutAmount,
+            isActive: isActive,
+            isPaidOut: isPaidOut,
           );
         }).toList();
       },

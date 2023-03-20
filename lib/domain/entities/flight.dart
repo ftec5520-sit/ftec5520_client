@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Flight {
   final String id;
   final String airline;
@@ -8,19 +10,11 @@ class Flight {
   final DateTime arrivalTime;
 
   String get departureTimeFormatted {
-    final month = departureTime.month;
-    final day = departureTime.day;
-    final hour = departureTime.hour;
-    final minute = departureTime.minute;
-    return '$day/$month $hour:$minute';
+    return DateFormat('dd/MM hh:mm').format(departureTime);
   }
 
   String get arrivalTimeFormatted {
-    final month = departureTime.month;
-    final day = departureTime.day;
-    final hour = arrivalTime.hour;
-    final minute = arrivalTime.minute;
-    return '$day/$month $hour:$minute';
+    return DateFormat('dd/MM hh:mm').format(arrivalTime);
   }
 
   Flight({
@@ -32,21 +26,4 @@ class Flight {
     required this.departureTime,
     required this.arrivalTime,
   });
-
-  // factory Flight.fromJson(Map<String, dynamic> json) {
-  //   return Flight(
-  //     id: json['id'],
-  //     airline: json['airline'],
-  //     flightNumber: json['flightNumber'],
-  //     departureAirport: json['departureAirport'],
-  //     arrivalAirport: json['arrivalAirport'],
-  //     departureTime: json['departureTime'],
-  //     arrivalTime: json['arrivalTime'],
-  //     aircraft: json['aircraft'],
-  //     status: json['status'],
-  //     terminal: json['terminal'],
-  //     gate: json['gate'],
-  //     baggage: json['baggage'],
-  //   );
-  // }
 }

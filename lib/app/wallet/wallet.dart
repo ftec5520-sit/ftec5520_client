@@ -32,14 +32,18 @@ class WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      // margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SizedBox(
+                width: 12,
+              ),
               const Icon(
                 Icons.account_balance_wallet,
                 size: 40,
@@ -63,13 +67,13 @@ class WalletState extends State<Wallet> {
             ],
           ),
           const SizedBox(
-            height: 24,
+            height: 30,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 6),
+                padding: const EdgeInsets.only(left: 16),
                 child: Text(_accountAddress ?? '-',
                     style: const TextStyle(
                       color: Colors.grey,

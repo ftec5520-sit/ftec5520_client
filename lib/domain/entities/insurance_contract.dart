@@ -1,15 +1,21 @@
+import 'package:intl/intl.dart';
+
 class InsuranceContract {
   String address;
   int templateId;
   String templateName;
   String flightNumber;
-  int departureTime;
+  DateTime departureTime;
   String insurer;
   String insured;
   double premium;
   double payoutAmount;
   bool isActive;
   bool isPaidOut;
+
+  String get departureTimeFormatted {
+    return DateFormat('dd/MM hh:mm').format(departureTime);
+  }
 
   InsuranceContract({
     required this.address,
@@ -24,4 +30,6 @@ class InsuranceContract {
     required this.isActive,
     required this.isPaidOut,
   });
+
+
 }

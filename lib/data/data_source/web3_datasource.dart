@@ -37,8 +37,8 @@ class Web3DataSource {
 
   Future<String> getAccountAddress() async {
     var credentials = EthPrivateKey.fromHex(_key);
-    print('getAccountAddress ${credentials.extractAddress().hashCode}');
-    return credentials.extractAddress().then((value) => value.hex);
+    print('getAccountAddress ${credentials.address}');
+    return credentials.address.hex;
   }
 
   Future<double> getBalance() async {
@@ -65,7 +65,12 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    return factory.getDeployedInsurances().then((value) {
+    final function = factory.self.abi.functions[3];
+    return _web3Client.call(
+        sender: _credentials.address,
+        contract: factory.self,
+        function: function,
+        params: []).then((value) {
       print('getDeployedInsurances value:${value}');
       return [];
     });
@@ -75,12 +80,12 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    // final vv = await factory.getDeployedInsurances().then((value) {
-    //   print('getDeployedInsurances value:${value}');
-    //   return value;
-    // });
-
-    return factory.getMyInsurances().then((value) {
+    final function = factory.self.abi.functions[5];
+    return _web3Client.call(
+        sender: _credentials.address,
+        contract: factory.self,
+        function: function,
+        params: []).then((value) {
       print('getMyInsurances value:${value}');
       return value;
     });

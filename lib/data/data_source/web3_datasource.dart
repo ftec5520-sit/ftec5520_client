@@ -82,7 +82,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[4];
+    final function = factory.self.abi.functions[6];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,

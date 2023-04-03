@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:ftec5520_client/data/data_source/TravelInsurance.g.dart';
 import 'package:ftec5520_client/data/data_source/TravelInsuranceFactory.g.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
@@ -113,5 +116,22 @@ class Web3DataSource {
         value: EtherAmount.fromBigInt(EtherUnit.wei, premium),
       ),
     );
+  }
+
+  StreamController<dynamic> listenClaimEvents(List<String> addresses) {
+
+    final streamController = StreamController<dynamic>();
+
+
+    addresses.forEach((element) {
+      final factory = TravelInsurance(address: EthereumAddress.fromHex(element), client: _web3Client);
+
+      factory.claimEventEvents().listen((event) {
+        print('listenClaimEvents event:${event.data}');
+        streamController.add(event.data);
+      });
+    });
+
+    return streamController;
   }
 }

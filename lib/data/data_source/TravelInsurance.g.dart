@@ -4,7 +4,7 @@
 import 'package:web3dart/web3dart.dart' as _i1;
 
 final _contractAbi = _i1.ContractAbi.fromJson(
-  '[{"inputs":[],"name":"cancelInsurance","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"claimInsurance","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_templateId","type":"uint256"},{"internalType":"string","name":"_templateName","type":"string"},{"internalType":"string","name":"_flightNumber","type":"string"},{"internalType":"string","name":"_departureTime","type":"string"},{"internalType":"address","name":"_insurer","type":"address"},{"internalType":"address","name":"_insured","type":"address"},{"internalType":"uint256","name":"_premium","type":"uint256"},{"internalType":"uint256","name":"_payoutAmount","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"data","outputs":[{"internalType":"uint256","name":"templateId","type":"uint256"},{"internalType":"string","name":"templateName","type":"string"},{"internalType":"string","name":"flightNumber","type":"string"},{"internalType":"string","name":"departureTime","type":"string"},{"internalType":"address","name":"insurer","type":"address"},{"internalType":"address","name":"insured","type":"address"},{"internalType":"uint256","name":"premium","type":"uint256"},{"internalType":"uint256","name":"payoutAmount","type":"uint256"},{"internalType":"bool","name":"isActive","type":"bool"},{"internalType":"bool","name":"isPaidOut","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getData","outputs":[{"components":[{"internalType":"uint256","name":"templateId","type":"uint256"},{"internalType":"string","name":"templateName","type":"string"},{"internalType":"string","name":"flightNumber","type":"string"},{"internalType":"string","name":"departureTime","type":"string"},{"internalType":"address","name":"insurer","type":"address"},{"internalType":"address","name":"insured","type":"address"},{"internalType":"uint256","name":"premium","type":"uint256"},{"internalType":"uint256","name":"payoutAmount","type":"uint256"},{"internalType":"bool","name":"isActive","type":"bool"},{"internalType":"bool","name":"isPaidOut","type":"bool"}],"internalType":"struct TravelInsurance.TravelInsuranceData","name":"","type":"tuple"}],"stateMutability":"view","type":"function"}]',
+  '[{"inputs":[],"name":"cancelInsurance","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"claimInsurance","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_templateId","type":"uint256"},{"internalType":"string","name":"_templateName","type":"string"},{"internalType":"string","name":"_flightNumber","type":"string"},{"internalType":"string","name":"_departureTime","type":"string"},{"internalType":"address","name":"_insurer","type":"address"},{"internalType":"address","name":"_insured","type":"address"},{"internalType":"uint256","name":"_premium","type":"uint256"},{"internalType":"uint256","name":"_payoutAmount","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"components":[{"internalType":"uint256","name":"templateId","type":"uint256"},{"internalType":"string","name":"templateName","type":"string"},{"internalType":"string","name":"flightNumber","type":"string"},{"internalType":"string","name":"departureTime","type":"string"},{"internalType":"address","name":"insurer","type":"address"},{"internalType":"address","name":"insured","type":"address"},{"internalType":"uint256","name":"premium","type":"uint256"},{"internalType":"uint256","name":"payoutAmount","type":"uint256"},{"internalType":"bool","name":"isActive","type":"bool"},{"internalType":"bool","name":"isPaidOut","type":"bool"}],"indexed":false,"internalType":"struct TravelInsurance.TravelInsuranceData","name":"data","type":"tuple"}],"name":"ClaimEvent","type":"event"},{"inputs":[],"name":"data","outputs":[{"internalType":"uint256","name":"templateId","type":"uint256"},{"internalType":"string","name":"templateName","type":"string"},{"internalType":"string","name":"flightNumber","type":"string"},{"internalType":"string","name":"departureTime","type":"string"},{"internalType":"address","name":"insurer","type":"address"},{"internalType":"address","name":"insured","type":"address"},{"internalType":"uint256","name":"premium","type":"uint256"},{"internalType":"uint256","name":"payoutAmount","type":"uint256"},{"internalType":"bool","name":"isActive","type":"bool"},{"internalType":"bool","name":"isPaidOut","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getData","outputs":[{"components":[{"internalType":"uint256","name":"templateId","type":"uint256"},{"internalType":"string","name":"templateName","type":"string"},{"internalType":"string","name":"flightNumber","type":"string"},{"internalType":"string","name":"departureTime","type":"string"},{"internalType":"address","name":"insurer","type":"address"},{"internalType":"address","name":"insured","type":"address"},{"internalType":"uint256","name":"premium","type":"uint256"},{"internalType":"uint256","name":"payoutAmount","type":"uint256"},{"internalType":"bool","name":"isActive","type":"bool"},{"internalType":"bool","name":"isPaidOut","type":"bool"}],"internalType":"struct TravelInsurance.TravelInsuranceData","name":"","type":"tuple"}],"stateMutability":"view","type":"function"}]',
   'TravelInsurance',
 );
 
@@ -87,6 +87,27 @@ class TravelInsurance extends _i1.GeneratedContract {
     );
     return (response[0] as dynamic);
   }
+
+  /// Returns a live stream of all ClaimEvent events emitted by this contract.
+  Stream<ClaimEvent> claimEventEvents({
+    _i1.BlockNum? fromBlock,
+    _i1.BlockNum? toBlock,
+  }) {
+    final event = self.event('ClaimEvent');
+    final filter = _i1.FilterOptions.events(
+      contract: self,
+      event: event,
+      fromBlock: fromBlock,
+      toBlock: toBlock,
+    );
+    return client.events(filter).map((_i1.FilterEvent result) {
+      final decoded = event.decodeResults(
+        result.topics!,
+        result.data!,
+      );
+      return ClaimEvent(decoded);
+    });
+  }
 }
 
 class Data {
@@ -121,4 +142,14 @@ class Data {
   final bool isActive;
 
   final bool isPaidOut;
+}
+
+class ClaimEvent {
+  ClaimEvent(List<dynamic> response)
+      : from = (response[0] as _i1.EthereumAddress),
+        data = (response[1] as dynamic);
+
+  final _i1.EthereumAddress from;
+
+  final dynamic data;
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:ftec5520_client/data/data_source/web3_datasource.dart';
@@ -86,6 +87,14 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
         .then((value) {
       print('purchaseInsuranceContract value:$value');
       return value;
+    });
+  }
+
+  StreamController<dynamic> listenClaimEvents(List<String> addresses) {
+
+    return _web3DataSource.listenClaimEvents(addresses).map((event) {
+      print('listenClaimEvents event:$event');
+      return event;
     });
   }
 }

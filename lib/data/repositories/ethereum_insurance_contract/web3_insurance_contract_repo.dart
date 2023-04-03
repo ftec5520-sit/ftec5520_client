@@ -90,11 +90,8 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
     });
   }
 
-  StreamController<dynamic> listenClaimEvents(List<String> addresses) {
+  Stream<dynamic> listenClaimEvents(List<String> addresses) {
 
-    return _web3DataSource.listenClaimEvents(addresses).map((event) {
-      print('listenClaimEvents event:$event');
-      return event;
-    });
+    return _web3DataSource.listenClaimEvents(addresses).stream.map((event) => null);
   }
 }

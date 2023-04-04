@@ -52,11 +52,14 @@ class WalletState extends State<Wallet> {
                 width: 10,
               ),
               _balance != null
-                  ? Text(
-                      '${_balance.toString()} ETH',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                  ? FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        '${_balance.toString()} ETH',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                        ),
                       ),
                     )
                   : const Text('loading...',

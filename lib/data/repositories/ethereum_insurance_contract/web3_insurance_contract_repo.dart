@@ -33,7 +33,8 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
           int templateId = (list[0] as BigInt).toInt();
           String templateName = list[1].toString();
           String flightNumber = list[2].toString();
-          DateTime departureTime = DateTime.fromMillisecondsSinceEpoch(int.parse(list[3] as String));
+          DateTime departureTime =
+              DateTime.fromMillisecondsSinceEpoch(int.parse(list[3] as String));
           String insurer = list[4].toString();
           String insured = list[5].toString();
           BigInt premium = list[6] as BigInt;
@@ -90,8 +91,34 @@ class Web3InsuranceContractRepo implements InsuranceContractRepository {
     });
   }
 
-  Stream<dynamic> listenClaimEvents(List<String> addresses) {
+  Stream<InsuranceContract> listenClaimEvents(List<String> addresses) {
+    return _web3DataSource.listenClaimEvents(addresses).map((event) {
+      print('listenClaimEvents event:$event');
+      int templateId = (event[0] as BigInt).toInt();
+      String templateName = event[1].toString();
+      String flightNumber = event[2].toString();
+      DateTime departureTime =
+      DateTime.fromMillisecondsSinceEpoch(int.parse(event[3] as String));
+      String insurer = event[4].toString();
+      String insured = event[5].toString();
+      BigInt premium = event[6] as BigInt;
+      BigInt payoutAmount = event[7] as BigInt;
+      bool isActive = event[8].toString() == "true";
+      bool isPaidOut = event[9].toString() == "true";
 
-    return _web3DataSource.listenClaimEvents(addresses).stream.map((event) => null);
+      return InsuranceContract(
+        address: 'unknown',
+        templateId: templateId,
+        templateName: templateName,
+        flightNumber: flightNumber,
+        departureTime: departureTime,
+        insurer: insurer,
+        insured: insured,
+        premium: premium,
+        payoutAmount: payoutAmount,
+        isActive: isActive,
+        isPaidOut: isPaidOut,
+      );
+    });
   }
 }

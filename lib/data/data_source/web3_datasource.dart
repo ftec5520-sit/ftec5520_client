@@ -34,7 +34,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x79C15989e15055C2713F31C0127Cd17083d52cc2');
+        EthereumAddress.fromHex('0x4DdDd00C53dea877BeF167d6ba86936f40258c7D');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -118,20 +118,30 @@ class Web3DataSource {
     );
   }
 
-  StreamController<dynamic> listenClaimEvents(List<String> addresses) {
+  Stream<dynamic> listenClaimEvents(List<String> addresses) {
 
     final streamController = StreamController<dynamic>();
 
+    List<StreamSubscription<dynamic>> stmSubscriptions = [];
 
     addresses.forEach((element) {
       final factory = TravelInsurance(address: EthereumAddress.fromHex(element), client: _web3Client);
 
-      factory.claimEventEvents().listen((event) {
+      StreamSubscription stmSubscription = factory.claimEventEvents().listen((event) {
         print('listenClaimEvents event:${event.data}');
         streamController.add(event.data);
       });
+
+      stmSubscriptions.add(stmSubscription);
     });
 
-    return streamController;
+    streamController.onCancel = () {
+      print('listenClaimEvents onCancel');
+      for (var element in stmSubscriptions) {
+        element.cancel();
+      }
+    };
+
+    return streamController.stream;
   }
 }

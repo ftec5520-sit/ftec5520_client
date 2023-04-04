@@ -153,12 +153,12 @@ class _ContractFlightListState extends State<FlightList> {
                               payload: 'contract',
                               context: context,
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                backgroundColor: Colors.green,
-                                content: Text('Purchase successful!'),
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     backgroundColor: Colors.green,
+                            //     content: Text('Purchase successful!'),
+                            //   ),
+                            // );
                           },
                           onError: (result) {
                             Navigator.pop(context);

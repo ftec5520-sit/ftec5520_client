@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/utils/notification_utils.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../data/repositories/ethereum_insurance_contract/web3_insurance_contract_repo.dart';
 import '../../domain/entities/insurance_contract.dart';
@@ -47,7 +48,7 @@ class PurchasedContractListState extends State<PurchasedContractList> {
       NotificationUtils.showNotification(
           title: "Contract claimed",
           body:
-              "${contract.flightNumber}, departure:${contract.departureTimeFormatted}, amount:${contract.payoutAmount}",
+              "${contract.flightNumber}, departure:${contract.departureTimeFormatted}, amount:${EtherAmount.inWei(contract.payoutAmount).getValueInUnit(EtherUnit.ether)}",
           payload: "payload",
           context: context);
       getPurchasedContracts();

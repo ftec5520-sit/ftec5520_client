@@ -34,7 +34,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x28b9330Ae986b1d8f9380FD42F1F1C9CBc810D1A');
+        EthereumAddress.fromHex('0x27402B3Cc137FF5DAb6F5f7cD18ea1b2C739ACCD');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -70,7 +70,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[2];
+    final function = factory.self.abi.functions[3];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,
@@ -85,7 +85,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[5];
+    final function = factory.self.abi.functions[6];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,

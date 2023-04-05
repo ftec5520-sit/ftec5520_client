@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/flight/flight_list.dart';
 import 'package:ftec5520_client/app/home/home.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+import 'app/utils/notification_utils.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Android notification settings
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('notification.png');
+
+  // iOS notification settings
+  const DarwinInitializationSettings initializationSettingsDarwin =
+      DarwinInitializationSettings(
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
+    onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+  );
+
+  const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin);
+
+  await NotificationUtils.flutterLocalNotificationsPlugin
+      .initialize(initializationSettings);
+
   runApp(const MyApp());
 }
 
@@ -34,4 +59,10 @@ class MyApp extends StatelessWidget {
       // home: const Home(),
     );
   }
+}
+
+Future<void> onDidReceiveLocalNotification(
+    int id, String? title, String? body, String? payload) async {
+  // Your logic here, you can show a dialog or a specific screen
+  print("onDidReceiveLocalNotification, id: $id, title: $title, body: $body, payload: $payload");
 }

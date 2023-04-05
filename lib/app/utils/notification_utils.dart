@@ -10,12 +10,6 @@ class NotificationUtils {
       required String body,
       required String payload,
       required BuildContext context}) {
-    // Android notification settings
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('notification.png');
-
-    // iOS notification settings
-    const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings();
 
     const DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
       presentAlert: true,

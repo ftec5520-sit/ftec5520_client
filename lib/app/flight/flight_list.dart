@@ -37,6 +37,9 @@ class _ContractFlightListState extends State<FlightList> {
   }
 
   void _getFlights() {
+
+    final time = DateTime.fromMicrosecondsSinceEpoch(1680712486000);
+
     setState(() {
       flights = [
         Flight(
@@ -45,8 +48,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'AA123',
           departureAirport: 'New York (JFK)',
           arrivalAirport: 'Los Angeles (LAX)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 6)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 6)),
         ),
         Flight(
           id: '2',
@@ -54,8 +57,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'DL456',
           departureAirport: 'Atlanta (ATL)',
           arrivalAirport: 'San Francisco (SFO)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 8)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 8)),
         ),
         Flight(
           id: '3',
@@ -63,8 +66,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'UA789',
           departureAirport: 'Chicago (ORD)',
           arrivalAirport: 'Miami (MIA)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 3)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 3)),
         ),
         Flight(
           id: '4',
@@ -72,8 +75,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'WN234',
           departureAirport: 'Dallas (DFW)',
           arrivalAirport: 'Denver (DEN)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 2)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 2)),
         ),
         Flight(
           id: '5',
@@ -81,8 +84,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'AS567',
           departureAirport: 'Seattle (SEA)',
           arrivalAirport: 'Newark (EWR)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 5)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 5)),
         ),
         Flight(
           id: '6',
@@ -90,8 +93,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'B624',
           departureAirport: 'Boston (BOS)',
           arrivalAirport: 'Orlando (MCO)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 3)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 3)),
         ),
         Flight(
           id: '7',
@@ -99,8 +102,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'F965',
           departureAirport: 'Las Vegas (LAS)',
           arrivalAirport: 'Cincinnati (CVG)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 4)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 4)),
         ),
         Flight(
           id: '8',
@@ -108,8 +111,8 @@ class _ContractFlightListState extends State<FlightList> {
           flightNumber: 'NK321',
           departureAirport: 'Houston (IAH)',
           arrivalAirport: 'Detroit (DTW)',
-          departureTime: DateTime.now(),
-          arrivalTime: DateTime.now().add(const Duration(hours: 3)),
+          departureTime: time,
+          arrivalTime: time.add(const Duration(hours: 3)),
         ),
       ];
     });

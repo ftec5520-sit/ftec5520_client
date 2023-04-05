@@ -13,4 +13,6 @@ abstract class InsuranceContractRepository {
       ContractTemplate contractTemplate,
       String flightNumber,
       int departureTime);
+
+  Stream<InsuranceContract> listenClaimEvents(List<String> addresses);
 }

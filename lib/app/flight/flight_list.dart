@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/app/flight/flight_card.dart';
+import 'package:ftec5520_client/app/utils/notification_utils.dart';
 
 import '../../data/repositories/ethereum_insurance_contract/web3_insurance_contract_repo.dart';
 import '../../domain/entities/contract_template.dart';
@@ -145,12 +146,19 @@ class _ContractFlightListState extends State<FlightList> {
                           contractTemplates: contractTemplates,
                           onSuccess: (result) {
                             Navigator.pop(context);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                backgroundColor: Colors.green,
-                                content: Text('Purchase successful!'),
-                              ),
+                            Navigator.pop(context);
+                            NotificationUtils.showNotification(
+                              title: 'Purchase successful!',
+                              body: 'Your contract has been purchased.',
+                              payload: 'contract',
+                              context: context,
                             );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     backgroundColor: Colors.green,
+                            //     content: Text('Purchase successful!'),
+                            //   ),
+                            // );
                           },
                           onError: (result) {
                             Navigator.pop(context);

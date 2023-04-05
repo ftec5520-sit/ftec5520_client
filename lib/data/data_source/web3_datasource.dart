@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:ftec5520_client/data/data_source/TravelInsurance.g.dart';
 import 'package:ftec5520_client/data/data_source/TravelInsuranceFactory.g.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
@@ -31,7 +34,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x79C15989e15055C2713F31C0127Cd17083d52cc2');
+        EthereumAddress.fromHex('0x28b9330Ae986b1d8f9380FD42F1F1C9CBc810D1A');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -67,7 +70,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[3];
+    final function = factory.self.abi.functions[2];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,
@@ -82,7 +85,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[6];
+    final function = factory.self.abi.functions[5];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,
@@ -113,5 +116,33 @@ class Web3DataSource {
         value: EtherAmount.fromBigInt(EtherUnit.wei, premium),
       ),
     );
+  }
+
+  Stream<dynamic> listenClaimEvents(List<String> addresses) {
+
+    final streamController = StreamController<dynamic>();
+
+    List<StreamSubscription<dynamic>> stmSubscriptions = [];
+
+    for (var element in addresses) {
+      print("element $element");
+      final factory = TravelInsurance(address: EthereumAddress.fromHex(element), client: _web3Client);
+
+      StreamSubscription stmSubscription = factory.claimEventEvents().listen((event) {
+        print('listenClaimEvents event:${event.data}');
+        streamController.add(event.data);
+      });
+
+      stmSubscriptions.add(stmSubscription);
+    }
+
+    streamController.onCancel = () {
+      print('listenClaimEvents onCancel');
+      for (var element in stmSubscriptions) {
+        element.cancel();
+      }
+    };
+
+    return streamController.stream;
   }
 }

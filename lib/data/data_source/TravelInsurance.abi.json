@@ -1,19 +1,5 @@
 [
 	{
-		"inputs": [],
-		"name": "cancelInsurance",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "claimInsurance",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -129,6 +115,20 @@
 		],
 		"name": "ClaimEvent",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "cancelInsurance",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claimInsurance",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"inputs": [],

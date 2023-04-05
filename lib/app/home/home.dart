@@ -29,8 +29,6 @@ class _HomeState extends State<Home> {
     print('refresh');
     _walletKey.currentState!.getWalletData();
     _purchasedContractListKey.currentState!.getPurchasedContracts();
-    NotificationUtils.showNotification(
-        title: "title", body: "body", payload: "payload", context: context);
   }
 
   // void onDidReceiveLocalNotification(

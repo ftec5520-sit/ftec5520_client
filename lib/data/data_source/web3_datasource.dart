@@ -34,7 +34,7 @@ class Web3DataSource {
 
   Web3DataSource._internal() {
     _address =
-        EthereumAddress.fromHex('0x4DdDd00C53dea877BeF167d6ba86936f40258c7D');
+        EthereumAddress.fromHex('0x28b9330Ae986b1d8f9380FD42F1F1C9CBc810D1A');
 
     _web3Client = Web3Client(_url, httpClient);
     _credentials = EthPrivateKey.fromHex(_key);
@@ -70,7 +70,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[3];
+    final function = factory.self.abi.functions[2];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,
@@ -85,7 +85,7 @@ class Web3DataSource {
     final factory =
         TravelInsuranceFactory(address: _address, client: _web3Client);
 
-    final function = factory.self.abi.functions[6];
+    final function = factory.self.abi.functions[5];
     return _web3Client.call(
         sender: _credentials.address,
         contract: factory.self,
@@ -124,7 +124,8 @@ class Web3DataSource {
 
     List<StreamSubscription<dynamic>> stmSubscriptions = [];
 
-    addresses.forEach((element) {
+    for (var element in addresses) {
+      print("element $element");
       final factory = TravelInsurance(address: EthereumAddress.fromHex(element), client: _web3Client);
 
       StreamSubscription stmSubscription = factory.claimEventEvents().listen((event) {
@@ -133,7 +134,7 @@ class Web3DataSource {
       });
 
       stmSubscriptions.add(stmSubscription);
-    });
+    }
 
     streamController.onCancel = () {
       print('listenClaimEvents onCancel');

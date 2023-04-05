@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ftec5520_client/data/repositories/ethereum_insurance_contract/web3_wallet_repo.dart';
 import 'package:ftec5520_client/domain/interfaces/repositories/wallet_repository.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -51,22 +52,22 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 width: 10,
               ),
-              _balance != null
-                  ? FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        '${_balance.toString()} ETH',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
-                    )
-                  : const Text('loading...',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      )),
+              Expanded(
+                child: _balance != null
+                    ? AutoSizeText(
+                  '${_balance.toString()} ETH',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                  maxLines: 1,
+                )
+                    : const Text('loading...',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    )),
+              ),
             ],
           ),
           const SizedBox(
